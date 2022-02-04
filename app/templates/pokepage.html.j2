@@ -1,0 +1,48 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+    Pokemon Selection Page
+{% endblock %}
+
+{% block content %}
+    <h1>Pokemon</h1>
+    <form action="{{url_for('party')}}" method="POST">
+     {{ form.hidden_tag() }}
+    <div>
+            {{form.search.label(class="form-label")}}
+            {{form.search(class="form-control")}}
+            {% for error in form.search.errors %}
+                <small style="color:red;">{{error}}</small>
+            {% endfor %}
+        </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <span style="color:red;"><small>{{ error }}</small></span>
+    </form>
+
+    {% if pokemon_party %}
+
+    {% for poke in pokemon_party%}
+<div class="card" style="width: 18rem;">
+  <img src="{{poke.sprite}}" class="card-img-top" alt="poke sprite">
+  <div class="card-body">
+    <h5 class="card-title">{{poke.name}}</h5>
+    <p class="card-text">
+         <ul>
+      
+      <li>HP: {{poke.hp}}</li>
+      <li>Defense: {{poke.defense}}</li>
+      <li>Attack: {{poke.attack}}</li>
+      <li>Ability 1: {{poke.ability_1}}</li>
+      
+    </ul>
+
+    </p>
+    
+  </div>
+  
+</div>
+{% endfor %}
+
+
+{% endif %}
+{% endblock %}
